@@ -2,5 +2,14 @@
 title: "Life Expectancy for Political Candidates"
 author: "Faisal Jan"
 format: html
+execute: 
+  echo: false
 ---
 
+```{r}
+#| message: false
+library(tidyverse)
+library(primer.data)
+```
+
+Elections are often rewarding in terms of perks but they can be stressing too, which might influence candidate's age and life. Using dataset of all the candidates in U.S. gubernatorial elections after 1850 to 2012, I seek to predict longevity of candidates after elections.
