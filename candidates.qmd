@@ -10,6 +10,12 @@ execute:
 #| message: false
 library(tidyverse)
 library(primer.data)
+library(tidymodels)
+library(broom)
 ```
 
-Elections are often rewarding in terms of perks but they can be stressing too, which might influence candidate's age and life. Using dataset of all the candidates in U.S. gubernatorial elections after 1850 to 2012, I seek to predict longevity of candidates after elections.
+Elections are often rewarding in terms of perks but they can be stressing too, which might influence candidate's age and life. Using dataset of all the candidates in U.S. gubernatorial elections after 1850 to 2012, I seek to predict longevity of candidates after elections. Running for election as a woman may be different than a man, as it might have changed from initial years till now.
+
+$$ 
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_n X_n + \epsilon, \quad \varepsilon \sim \mathcal{N}(0, \sigma^2) 
+$$
