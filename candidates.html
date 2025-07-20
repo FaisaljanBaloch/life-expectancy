@@ -99,10 +99,69 @@ window.Quarto = {
 </header>
 
 
-<p>Elections are often rewarding in terms of perks but they can be stressing too, which might influence candidate’s age and life. Using dataset of all the candidates in U.S. gubernatorial elections after 1850 to 2012, I seek to predict longevity of candidates after elections. Running for election as a woman may be different than a man, as it might have changed from initial years till now.</p>
+<p>Elections are often rewarding in terms of perks but they can be stressing too, which might influence candidate’s age and life. Using dataset of all the candidates in U.S. gubernatorial elections after 1850 to 2012, I seek to predict longevity of candidates after elections. Running for election as a woman may be different than a man, as it might have changed from initial years till now. I model years a candidate lived after election, as a linear model of candidate’s sex and the age at the time of election.</p>
 <p><span class="math display">\[
 Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_n X_n + \epsilon, \quad \varepsilon \sim \mathcal{N}(0, \sigma^2)
 \]</span></p>
+<p><span class="math display">\[
+\widehat{\text{years\_lived}} = 56.30 + 3.66 \times \text{sexMale} - 0.709 \times \text{election\_age}
+\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Estimated Regression Coefficients and Confidence Intervals</caption>
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 13%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Term</th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">Statistic</th>
+<th style="text-align: left;">p-value</th>
+<th style="text-align: right;">Conf. Low</th>
+<th style="text-align: right;">Conf. High</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">56.90</td>
+<td style="text-align: right;">4.18</td>
+<td style="text-align: right;">13.61</td>
+<td style="text-align: left;">8.38e-39</td>
+<td style="text-align: right;">48.69</td>
+<td style="text-align: right;">65.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sexMale</td>
+<td style="text-align: right;">1.67</td>
+<td style="text-align: right;">3.74</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: left;">6.56e-01</td>
+<td style="text-align: right;">-5.67</td>
+<td style="text-align: right;">9.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">election_age</td>
+<td style="text-align: right;">-0.68</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">-19.75</td>
+<td style="text-align: left;">1.65e-73</td>
+<td style="text-align: right;">-0.75</td>
+<td style="text-align: right;">-0.62</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 </main>
 <!-- /main column -->
