@@ -99,7 +99,16 @@ window.Quarto = {
 </header>
 
 
-<p>Elections are often rewarding in terms of perks but they can be stressing too, which might influence candidate’s age and life. Using dataset of all the candidates in U.S. gubernatorial elections after 1850 to 2012, I seek to predict longevity of candidates after elections. Running for election as a woman may be different than a man, as it might have changed from initial years till now. I model years a candidate lived after election, as a linear model of candidate’s sex and the age at the time of election.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="candidates_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Elections are often rewarding in terms of perks but they can be stressing too, which might influence candidate’s age and life. Using dataset of all the candidates in U.S. gubernatorial elections after 1850 to 2012, I seek to predict longevity of candidates after elections. Running for election as a woman may be different than a man, as it might have changed from initial years till now. I model years a candidate lived after election, as a linear model of candidate’s sex and the age at the time of election. Predictions show that female political candidate have a longer lifespan after election than male candidates.</p>
 <p><span class="math display">\[
 Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_n X_n + \epsilon, \quad \varepsilon \sim \mathcal{N}(0, \sigma^2)
 \]</span></p>
@@ -133,30 +142,30 @@ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_n X_n + \epsilon, \quad
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">56.90</td>
-<td style="text-align: right;">4.18</td>
-<td style="text-align: right;">13.61</td>
-<td style="text-align: left;">8.38e-39</td>
-<td style="text-align: right;">48.69</td>
-<td style="text-align: right;">65.10</td>
+<td style="text-align: right;">57.13</td>
+<td style="text-align: right;">4.83</td>
+<td style="text-align: right;">11.83</td>
+<td style="text-align: left;">2.55e-30</td>
+<td style="text-align: right;">47.66</td>
+<td style="text-align: right;">66.61</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">sexMale</td>
-<td style="text-align: right;">1.67</td>
-<td style="text-align: right;">3.74</td>
-<td style="text-align: right;">0.45</td>
-<td style="text-align: left;">6.56e-01</td>
-<td style="text-align: right;">-5.67</td>
-<td style="text-align: right;">9.00</td>
+<td style="text-align: right;">3.05</td>
+<td style="text-align: right;">4.38</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: left;">4.87e-01</td>
+<td style="text-align: right;">-5.54</td>
+<td style="text-align: right;">11.64</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">election_age</td>
-<td style="text-align: right;">-0.68</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">-19.75</td>
-<td style="text-align: left;">1.65e-73</td>
-<td style="text-align: right;">-0.75</td>
-<td style="text-align: right;">-0.62</td>
+<td style="text-align: right;">-0.72</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">-19.92</td>
+<td style="text-align: left;">1.33e-74</td>
+<td style="text-align: right;">-0.80</td>
+<td style="text-align: right;">-0.65</td>
 </tr>
 </tbody>
 </table>

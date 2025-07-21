@@ -13,9 +13,54 @@ library(primer.data)
 library(tidymodels)
 library(broom)
 library(knitr)
+library(marginaleffects)
 ```
 
-Elections are often rewarding in terms of perks but they can be stressing too, which might influence candidate's age and life. Using dataset of all the candidates in U.S. gubernatorial elections after 1850 to 2012, I seek to predict longevity of candidates after elections. Running for election as a woman may be different than a man, as it might have changed from initial years till now. I model years a candidate lived after election, as a linear model of candidate's sex and the age at the time of election.
+```{r}
+x <- governors |>
+  filter(election_age > 0) |>
+  select(lived_after, election_age, sex, region) |>
+  drop_na() |>
+  slice_sample(n = 1000)
+```
+
+```{r}
+#| cache: true
+fit_years <- fit_years <- linear_reg(engine = "lm") |>
+  fit(lived_after ~ sex + election_age, data = x)
+```
+
+```{r}
+plot_predictions(fit_years, by = c("election_age", "sex"), draw = FALSE) |>
+  filter(estimate > 0) |>
+  ggplot(aes(x = election_age, y = estimate, color = sex, fill = sex)) +
+  geom_ribbon(aes(ymin = min(estimate), ymax = max(estimate)), alpha = 0.15, color = NA) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(values = c("Female" = "#E69F00", "Male" = "#56B4E9")) + # Custom colors
+  scale_fill_manual(values = c("Female" = "#E69F00", "Male" = "#56B4E9")) + # Custom fill colors for ribbon
+  labs(
+    title = "Predicted Years Lived After Election by Age and Sex",
+    subtitle = "Males show a steeper decline in years lived after election with age.",
+    x = "Age at Election (Years)",
+    y = "Lived After Election (Years)",
+    color = "Sex",
+    fill = "Sex",
+    caption = "Data source: Population Table (Elections data)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 18),
+    plot.subtitle = element_text(hjust = 0.5, size = 14, color = "gray30"),
+    plot.caption = element_text(hjust = 1, size = 10, color = "gray50"),
+    axis.title = element_text(face = "bold"),
+    legend.position = "bottom", # Place legend at the bottom
+    panel.grid.minor = element_blank(), # Remove minor grid lines
+    panel.background = element_rect(fill = "white", color = NA), # White background
+    plot.background = element_rect(fill = "white", color = NA) # White plot background
+  )
+```
+
+Elections are often rewarding in terms of perks but they can be stressing too, which might influence candidate's age and life. Using dataset of all the candidates in U.S. gubernatorial elections after 1850 to 2012, I seek to predict longevity of candidates after elections. Running for election as a woman may be different than a man, as it might have changed from initial years till now. I model years a candidate lived after election, as a linear model of candidate's sex and the age at the time of election. Predictions show that female political candidate have a longer lifespan after election than male candidates.
 
 $$ 
 Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_n X_n + \epsilon, \quad \varepsilon \sim \mathcal{N}(0, \sigma^2) 
@@ -26,29 +71,27 @@ $$
 $$
 
 ```{r}
-x <- governors |>
-  select(lived_after, election_age, sex, region) |>
-  drop_na() |>
-  slice_sample(n = 1000)
-```
-
-```{r}
-#| cache: true
-fit_years <- fit_years <- linear_reg(engine = "lm") |> 
-  fit(lived_after ~ sex + election_age, data = x)
-```
-
-```{r}
-fit_years |> 
-  tidy(conf.int = TRUE) |> 
+fit_years |>
+  tidy(conf.int = TRUE) |>
   mutate(
     # Round numerical columns for cleaner display
-    across(c(estimate, std.error, statistic, conf.low, conf.high), ~ round(., 2)),
+    across(
+      c(estimate, std.error, statistic, conf.low, conf.high),
+      ~ round(., 2)
+    ),
     # Format p-value to scientific notation with specific digits
     p.value = formatC(p.value, format = "e", digits = 2)
   ) |>
   kable(
     caption = "Estimated Regression Coefficients and Confidence Intervals",
-    col.names = c("Term", "Estimate", "Std. Error", "Statistic", "p-value", "Conf. Low", "Conf. High")
+    col.names = c(
+      "Term",
+      "Estimate",
+      "Std. Error",
+      "Statistic",
+      "p-value",
+      "Conf. Low",
+      "Conf. High"
+    )
   )
 ```
